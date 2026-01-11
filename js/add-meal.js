@@ -97,9 +97,6 @@ function setupEventListeners() {
     // Food library selection
     const foodLibrarySelect = document.getElementById('foodLibrary');
     if (foodLibrarySelect) {
-        // Initialize tooltip for dropdown
-        new bootstrap.Tooltip(foodLibrarySelect);
-        
         foodLibrarySelect.addEventListener('change', function() {
             if (this.value && this.selectedIndex > 0) {
                 const selectedOption = this.options[this.selectedIndex];
@@ -125,12 +122,6 @@ function setupEventListeners() {
     const mealCategoryInput = document.getElementById('mealCategory');
     
     categoryButtons.forEach(button => {
-        // Add tooltip to category button
-        const category = button.getAttribute('data-category');
-        button.setAttribute('data-bs-toggle', 'tooltip');
-        button.setAttribute('data-bs-placement', 'top');
-        button.setAttribute('title', `Select ${category} as meal category`);
-        
         button.addEventListener('click', function() {
             // Remove active class from all buttons
             categoryButtons.forEach(btn => {
@@ -150,9 +141,6 @@ function setupEventListeners() {
                 mealCategoryInput.value = category;
             }
         });
-        
-        // Initialize tooltip
-        new bootstrap.Tooltip(button);
     });
     
     // Set initial active state for Breakfast button

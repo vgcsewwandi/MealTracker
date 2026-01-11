@@ -133,20 +133,26 @@ function createMealItem(meal, index) {
         hour12: true 
     });
     
+    // Get category icon
+    const categoryIcon = getCategoryIcon(meal.category);
+
     mealDiv.innerHTML = `
         <div class="meal-item-header">
             <div class="flex-fill">
                 <h5 class="meal-name">${escapeHtml(meal.name)}</h5>
-                <span class="meal-category">${escapeHtml(meal.category)}</span>
+                <span class="meal-category" data-category="${escapeHtml(meal.category)}">
+                    ${categoryIcon}
+                    ${escapeHtml(meal.category)}
+                </span>
                 <div class="meal-time mt-2">${timeString}</div>
             </div>
             <div class="text-end">
                 <div class="meal-calories">${meal.calories} kcal</div>
                 <div class="meal-actions mt-2">
-                    <button class="btn btn-sm btn-outline-primary btn-icon delete-meal-btn" 
-                            data-meal-index="${index}" 
-                            data-bs-toggle="tooltip" 
-                            data-bs-placement="top" 
+                    <button class="btn btn-sm btn-outline-primary btn-icon delete-meal-btn"
+                            data-meal-index="${index}"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="top"
                             title="Delete this meal">
                         <i class="bi bi-trash"></i>
                     </button>
@@ -204,6 +210,19 @@ async function deleteMeal(index) {
             showSuccessModal('Meal deleted successfully!', 'Success');
         }
     }
+}
+
+/**
+ * Get category icon based on meal category
+ */
+function getCategoryIcon(category) {
+    const icons = {
+        'Breakfast': '<i class="bi bi-sunrise-fill"></i>',
+        'Lunch': '<i class="bi bi-sun-fill"></i>',
+        'Dinner': '<i class="bi bi-moon-fill"></i>',
+        'Snack': '<i class="bi bi-cup-hot-fill"></i>'
+    };
+    return icons[category] || '<i class="bi bi-fork-knife"></i>';
 }
 
 /**
